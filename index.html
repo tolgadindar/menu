@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Gentlemen’s Bite - Fiyat Listesi</title>
+  <style>
+    :root{
+      --ink:#1f2d1c;
+      --ink-soft:#2e3b2b;
+      --paper:#f7f4ec;
+      --paper-deep:#efe9d9;
+      --gold:#bca66a;
+      --rule:#c9b98a;
+      --muted:#6a6a6a;
+      --accent:#30412d;
+      --maxw:980px;
+    }
+    html,body{height:100%}
+    body{
+      margin:0; background:var(--paper);
+      color:var(--ink); font-family: Georgia, "Times New Roman", Times, serif; line-height:1.35;
+      display:flex; align-items:stretch; justify-content:center;
+    }
+    body:before{
+      content:""; position:fixed; inset:0; pointer-events:none; opacity:.25;
+      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><g fill="none" stroke="%23cfc7b1" stroke-width=".5" opacity=".6"><path d="M0 30h60M30 0v60"/><circle cx="30" cy="30" r="29"/></g></svg>');
+      background-size:120px 120px; mix-blend-mode:multiply;
+    }
+    .frame{width:100%; max-width:var(--maxw); padding:28px; box-sizing:border-box;}
+    .card{
+      position:relative; background:linear-gradient(180deg, #fbf9f2, var(--paper));
+      border:1px solid var(--gold);
+      box-shadow:0 10px 25px rgba(0,0,0,.06), inset 0 0 0 8px var(--paper);
+    }
+    .card:before, .card:after{
+      content:""; position:absolute; inset:10px; border:1px solid var(--rule); pointer-events:none;
+    }
+    .card:after{inset:22px; border-color:var(--gold)}
+    header{text-align:center; padding:48px 24px 18px; position:relative;}
+    .estab{letter-spacing:.08em; color:var(--muted); font-variant:small-caps}
+    h1{margin:.25rem 0 0; font-size:2rem; letter-spacing:.03em; color:var(--ink-soft);}
+    .meta{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:14px 0 0}
+    .meta .pill{border:1px solid var(--rule); padding:6px 10px; border-radius:999px; background:#ffffffaa; backdrop-filter:saturate(1.1); font-size:.95rem}
+    .menu{padding:10px 22px 40px}
+    .section{margin:26px 0}
+    .section h2{font-size:1.15rem; letter-spacing:.08em; font-variant:small-caps; margin:0 0 10px; color:var(--accent); display:flex; align-items:center; gap:8px}
+    .section h2:before, .section h2:after{content:""; flex:1; height:1px; background:linear-gradient(90deg, transparent, var(--rule), transparent)}
+    .list{display:grid; grid-template-columns:1fr auto; gap:8px 18px; align-items:baseline; padding:12px 14px; border:1px solid var(--rule); background:#fffffe}
+    .list + .list{border-top:none}
+    .item{display:flex; align-items:baseline; gap:8px}
+    .dots{flex:1; border-bottom:1px dotted #a89a6b; opacity:.7; transform:translateY(-.25em)}
+    .price{font-weight:600}
+    footer{padding:22px; text-align:center; color:var(--muted); font-size:.95rem; border-top:1px dashed var(--rule)}
+    @media print{body:before{display:none}.frame{padding:0}.card{box-shadow:none}.meta .pill{background:transparent}}
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <div class="card">
+      <header>
+        <div class="estab" id="shopName">The Gentlemen’s Bite</div>
+        <h1>Fiyat Listesi</h1>
+        <div class="meta">
+          <div class="pill">Tarih: <span id="today"></span></div>
+          <div class="pill">Para birimi: ₺</div>
+        </div>
+      </header>
+      <main class="menu" id="menuRoot"></main>
+      <footer>“Barkodu okuttuğunda bu sayfa açılır — fiyat güncellemeleri için dosyayı düzenle ve kaydet.”</footer>
+    </div>
+  </div>
+  <script>
+    const FİYATLAR = [
+      {
+        kategori: "Sıcak İçecekler",
+        ürünler: [
+          { ad: "Çay", fiyat: 10 },
+          { ad: "Kokteyl", fiyat: 10 },
+          { ad: "Oralet", fiyat: 10 },
+          { ad: "Nar", fiyat: 10 },
+          { ad: "Elma", fiyat: 10 },
+          { ad: "Karadut", fiyat: 10 },
+          { ad: "Kuşburnu", fiyat: 10 },
+          { ad: "Nane-Limon", fiyat: 10 },
+          { ad: "Sıcak Çikolata", fiyat: 10 },
+          { ad: "Muz", fiyat: 10 },
+          { ad: "Nescafe", fiyat: 15 },
+          { ad: "Adaçayı", fiyat: 10 },
+          { ad: "Çilek", fiyat: 10 },
+          { ad: "Türk Kahvesi", fiyat: 30 }
+        ]
+      },
+      {
+        kategori: "Soğuk İçecekler",
+        ürünler: [
+          { ad: "Kola", fiyat: 35 },
+          { ad: "Fanta", fiyat: 35 },
+          { ad: "Gazoz", fiyat: 35 },
+          { ad: "Meyveli sodalar (elma, karpuz-çilek, limon, ananas)", fiyat: 20 },
+          { ad: "Sade Soda", fiyat: 15 },
+          { ad: "Ayran", fiyat: 15 },
+          { ad: "Meyve Suları (şeftali, vişne)", fiyat: 35 },
+          { ad: "Su", fiyat: 10 }
+        ]
+      },
+      {
+        kategori: "Burgerler",
+        ürünler: [
+          { ad: "Classic Gentlemen Burger", fiyat: 165 },
+          { ad: "Double Bite Burger", fiyat: 245 },
+          { ad: "Truffle Royal Burger", fiyat: 265 }
+        ]
+      },
+      {
+        kategori: "Tost & Sandviç",
+        ürünler: [
+          { ad: "Kaşarlı Tost", fiyat: 55 },
+          { ad: "Karışık Tost", fiyat: 70 },
+          { ad: "Sosisli Sandviç", fiyat: 60 },
+          { ad: "Tavuklu Club Sandviç", fiyat: 80 }
+        ]
+      },
+      {
+        kategori: "Atıştırmalıklar",
+        ürünler: [
+          { ad: "Patates Kızartması (150 g)", fiyat: 45 },
+          { ad: "Soğan Halkası (150 g)", fiyat: 40 },
+          { ad: "Mini Sosis Tabağı (150 g)", fiyat: 60 },
+          { ad: "Bira Tabağı", fiyat: 100 }
+        ]
+      }
+    ];
+
+    document.getElementById('shopName').textContent = 'The Gentlemen’s Bite';
+    try{
+      const fmt = new Intl.DateTimeFormat('tr-TR', { timeZone:'Europe/Istanbul', day:'2-digit', month:'long', year:'numeric' });
+      document.getElementById('today').textContent = fmt.format(new Date());
+    }catch(e){ document.getElementById('today').textContent = new Date().toLocaleDateString('tr-TR'); }
+    const root = document.getElementById('menuRoot');
+    FİYATLAR.forEach(blok=>{
+      const sec = document.createElement('section');
+      sec.className = 'section';
+      const h2 = document.createElement('h2');
+      h2.textContent = blok.kategori;
+      sec.appendChild(h2);
+      blok.ürünler.forEach((u,i)=>{
+        const list = document.createElement('div');
+        list.className='list';
+        const left = document.createElement('div');
+        left.className='item';
+        const name = document.createElement('span'); name.textContent = u.ad;
+        const dots = document.createElement('span'); dots.className='dots';
+        left.append(name,dots);
+        const price = document.createElement('div'); price.className='price'; price.textContent = `₺ ${Number(u.fiyat).toLocaleString('tr-TR')}`;
+        list.append(left, price);
+        sec.appendChild(list);
+      });
+      root.appendChild(sec);
+    });
+  </script>
+</body>
+</html>
