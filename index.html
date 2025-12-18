@@ -3,161 +3,421 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Gentlemen’s Bite - Fiyat Listesi</title>
+  <title>Cleanza | Akıllı Hizmet Pazaryeri</title>
   <style>
     :root{
-      --ink:#1f2d1c;
-      --ink-soft:#2e3b2b;
-      --paper:#f7f4ec;
-      --paper-deep:#efe9d9;
-      --gold:#bca66a;
-      --rule:#c9b98a;
-      --muted:#6a6a6a;
-      --accent:#30412d;
-      --maxw:980px;
+      --ink:#0f1b2c;
+      --muted:#516078;
+      --paper:#f6f8fb;
+      --panel:#ffffff;
+      --accent:#1f7a8c;
+      --accent-2:#f29f05;
+      --border:#d8e0ed;
+      --shadow:0 10px 35px rgba(13,42,74,.08);
+      --radius:18px;
+      --maxw:1200px;
     }
+    *{box-sizing:border-box}
     html,body{height:100%}
     body{
-      margin:0; background:var(--paper);
-      color:var(--ink); font-family: Georgia, "Times New Roman", Times, serif; line-height:1.35;
-      display:flex; align-items:stretch; justify-content:center;
+      margin:0; font-family: "Inter", system-ui, -apple-system, sans-serif;
+      background:radial-gradient(circle at 10% 20%, #e8f5ff, transparent 25%),
+                 radial-gradient(circle at 90% 10%, #fff4e3, transparent 22%),
+                 var(--paper);
+      color:var(--ink);
     }
-    body:before{
-      content:""; position:fixed; inset:0; pointer-events:none; opacity:.25;
-      background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><g fill="none" stroke="%23cfc7b1" stroke-width=".5" opacity=".6"><path d="M0 30h60M30 0v60"/><circle cx="30" cy="30" r="29"/></g></svg>');
-      background-size:120px 120px; mix-blend-mode:multiply;
-    }
-    .frame{width:100%; max-width:var(--maxw); padding:28px; box-sizing:border-box;}
-    .card{
-      position:relative; background:linear-gradient(180deg, #fbf9f2, var(--paper));
-      border:1px solid var(--gold);
-      box-shadow:0 10px 25px rgba(0,0,0,.06), inset 0 0 0 8px var(--paper);
-    }
-    .card:before, .card:after{
-      content:""; position:absolute; inset:10px; border:1px solid var(--rule); pointer-events:none;
-    }
-    .card:after{inset:22px; border-color:var(--gold)}
-    header{text-align:center; padding:48px 24px 18px; position:relative;}
-    .estab{letter-spacing:.08em; color:var(--muted); font-variant:small-caps}
-    h1{margin:.25rem 0 0; font-size:2rem; letter-spacing:.03em; color:var(--ink-soft);}
-    .meta{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin:14px 0 0}
-    .meta .pill{border:1px solid var(--rule); padding:6px 10px; border-radius:999px; background:#ffffffaa; backdrop-filter:saturate(1.1); font-size:.95rem}
-    .menu{padding:10px 22px 40px}
-    .section{margin:26px 0}
-    .section h2{font-size:1.15rem; letter-spacing:.08em; font-variant:small-caps; margin:0 0 10px; color:var(--accent); display:flex; align-items:center; gap:8px}
-    .section h2:before, .section h2:after{content:""; flex:1; height:1px; background:linear-gradient(90deg, transparent, var(--rule), transparent)}
-    .list{display:grid; grid-template-columns:1fr auto; gap:8px 18px; align-items:baseline; padding:12px 14px; border:1px solid var(--rule); background:#fffffe}
-    .list + .list{border-top:none}
-    .item{display:flex; align-items:baseline; gap:8px}
-    .dots{flex:1; border-bottom:1px dotted #a89a6b; opacity:.7; transform:translateY(-.25em)}
-    .price{font-weight:600}
-    footer{padding:22px; text-align:center; color:var(--muted); font-size:.95rem; border-top:1px dashed var(--rule)}
-    @media print{body:before{display:none}.frame{padding:0}.card{box-shadow:none}.meta .pill{background:transparent}}
+    header{padding:24px 20px 8px; display:flex; justify-content:center;}
+    .frame{width:100%; max-width:var(--maxw);}
+    .topbar{display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 14px; background:var(--panel); border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow);}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.3px;}
+    .pill{display:inline-flex; align-items:center; gap:6px; padding:8px 12px; border-radius:999px; background:#0f1b2c08; color:var(--muted); border:1px solid var(--border); font-size:.92rem;}
+    main{padding:10px 20px 36px; display:flex; justify-content:center;}
+    .grid{display:grid; gap:16px;}
+    .hero{display:grid; gap:12px; grid-template-columns:2fr 1.1fr; align-items:stretch;}
+    .card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); padding:18px; box-shadow:var(--shadow); position:relative; overflow:hidden;}
+    h1{margin:0; font-size:1.9rem; letter-spacing:-.01em;}
+    .lead{color:var(--muted); margin:10px 0 16px; line-height:1.6;}
+    .actions{display:flex; gap:10px; flex-wrap:wrap;}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:11px 14px; border-radius:12px; border:1px solid var(--border); background:var(--panel); color:var(--ink); text-decoration:none; font-weight:600; cursor:pointer; transition:transform .12s ease, box-shadow .12s ease;}
+    .btn.primary{background:linear-gradient(135deg, #1f7a8c, #12526f); color:#fff; border:none; box-shadow:0 12px 26px rgba(31,122,140,.35);}
+    .btn:hover{transform:translateY(-1px);}
+    .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px;}
+    .stat{padding:14px; border-radius:14px; border:1px dashed var(--border); background:#f9fbff;}
+    .stat strong{font-size:1.4rem; display:block;}
+    .badge{display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:10px; background:#eef7fb; color:var(--accent); font-weight:600; font-size:.92rem;}
+
+    .section-title{display:flex; justify-content:space-between; align-items:flex-end; margin:4px 0 10px; gap:10px; flex-wrap:wrap;}
+    .section-title h2{margin:0; font-size:1.2rem; letter-spacing:-.01em;}
+    .muted{color:var(--muted); font-size:.95rem;}
+
+    .category-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr)); gap:12px;}
+    .category{padding:14px; border:1px solid var(--border); border-radius:14px; background:#0f1b2c05;}
+    .tagline{font-size:.95rem; color:var(--muted);}
+    .chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:6px;}
+    .chip{padding:6px 10px; background:#fff; border:1px solid var(--border); border-radius:999px; color:var(--muted); font-size:.9rem;}
+
+    .split{display:grid; grid-template-columns:1.7fr 1fr; gap:16px; align-items:start;}
+    .list{display:flex; flex-direction:column; gap:12px;}
+    .job{border:1px solid var(--border); border-radius:14px; padding:14px; position:relative; background:#fff;}
+    .job h3{margin:0 0 4px; font-size:1.05rem;}
+    .label{display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:10px; font-size:.88rem; border:1px solid var(--border); color:var(--muted); background:#f8fbff; margin-right:6px;}
+    .job .meta{display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 8px;}
+    .price{font-weight:700; color:var(--ink);} 
+    .best{margin-top:10px; padding:10px; border-radius:12px; background:linear-gradient(135deg, #f9fcff, #f4f8ff); border:1px solid var(--border);}
+    .best strong{color:var(--accent);}
+    .bid-list{display:flex; flex-direction:column; gap:8px; margin-top:8px;}
+    .bid{padding:8px 10px; border-radius:10px; border:1px dashed var(--border); background:#fafafa; display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap;}
+    .bid .note{color:var(--muted); font-size:.9rem;}
+    .pill.status-open{color:#0e8345; background:#e9f8ef; border-color:#c1e7cd;}
+    .pill.status-closed{color:#8a102c; background:#fff1f4; border-color:#f2cbd6;}
+
+    form{display:grid; gap:10px;}
+    label{font-weight:600; font-size:.95rem; color:var(--ink);}
+    input, select, textarea{width:100%; padding:10px; border-radius:10px; border:1px solid var(--border); font:inherit; background:#fff;}
+    textarea{min-height:90px; resize:vertical;}
+    .form-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:10px;}
+    .sidecard{border:1px solid var(--border); padding:14px; border-radius:14px; background:#fff; box-shadow:var(--shadow);}
+    .domain-list{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;}
+    .domain{padding:8px 10px; border:1px solid var(--border); border-radius:10px; background:#f8fbff; font-weight:600; color:var(--ink);} 
+    .note{color:var(--muted); font-size:.92rem;}
+    @media(max-width:980px){.hero{grid-template-columns:1fr}.split{grid-template-columns:1fr}.topbar{flex-direction:column; align-items:flex-start;}}
   </style>
 </head>
 <body>
-  <div class="frame">
-    <div class="card">
-      <header>
-        <div class="estab" id="shopName">The Gentlemen’s Bite</div>
-        <h1>Fiyat Listesi</h1>
-        <div class="meta">
-          <div class="pill">Tarih: <span id="today"></span></div>
-          <div class="pill">Para birimi: ₺</div>
+  <header>
+    <div class="frame">
+      <div class="topbar">
+        <div class="brand">
+          <span style="display:inline-flex; width:38px; height:38px; border-radius:12px; background:linear-gradient(135deg,#1f7a8c,#0f4d6a); align-items:center; justify-content:center; color:#fff; font-weight:800;">C</span>
+          <div>
+            <div style="font-size:1.05rem;">Cleanza</div>
+            <div style="color:var(--muted); font-size:.9rem;">Teklif tabanlı hizmet pazaryeri</div>
+          </div>
         </div>
-      </header>
-      <main class="menu" id="menuRoot"></main>
-      <footer>“Barkodu okuttuğunda bu sayfa açılır — fiyat güncellemeleri için dosyayı düzenle ve kaydet.”</footer>
+        <div class="actions">
+          <span class="pill"><span>📍</span>İstanbul + çevrimiçi</span>
+          <span class="pill" id="openCount">0 açık ihale</span>
+          <a class="btn primary" href="#talep">Hizmet talebi oluştur</a>
+          <a class="btn" href="#teklif">Teklif ekle</a>
+        </div>
+      </div>
     </div>
-  </div>
+  </header>
+  <main>
+    <div class="frame grid">
+      <section class="hero">
+        <div class="card">
+          <h1>Cleanza ile doğru usta, doğru fiyat.</h1>
+          <p class="lead">Su & elektrik tesisatı, yapı onarım, temizlik ve acil müdahale işleri için puan ve fiyatı dengelenmiş akıllı ihale sistemi. En yüksek puanlı, makul fiyatlı uzman otomatik seçilir.</p>
+          <div class="stats">
+            <div class="stat"><strong id="stat-open">0</strong><div class="muted">Aktif ihale</div></div>
+            <div class="stat"><strong id="stat-pros">0</strong><div class="muted">Kayıtlı uzman</div></div>
+            <div class="stat"><strong id="stat-eta">0 dk</strong><div class="muted">Ortalama dönüş</div></div>
+            <div class="stat"><strong id="stat-sla">%0</strong><div class="muted">Tamamlama başarı oranı</div></div>
+          </div>
+          <div class="actions" style="margin-top:14px;">
+            <a class="btn primary" href="#talep">+ Yeni talep gir</a>
+            <a class="btn" href="#plan">Yol haritası</a>
+          </div>
+        </div>
+        <div class="card" id="plan">
+          <div class="section-title"><h2>Domain + Plan</h2><span class="badge">Cleanza.com.tr</span></div>
+          <p class="note">.com.tr, .com, .net domainleri alınabilir. Aşağıdaki varyasyonlar da uygun: </p>
+          <div class="domain-list" id="domains"></div>
+          <p class="note">Tek sayfa SPA olarak düzenlenebilir; React / Vue / backend API eklentisi için yapıyı sade tuttuk. İster statik barındır, ister Python-FastAPI/Flask ile API bağla.</p>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-title">
+          <h2>Öne çıkan kategoriler</h2>
+          <span class="muted">Su tesisatı, elektrik, yapı onarım, temizlik ve daha fazlası</span>
+        </div>
+        <div class="category-grid" id="categories"></div>
+      </section>
+
+      <section class="split">
+        <div>
+          <div class="section-title">
+            <h2>Aktif ihaleler</h2>
+            <span class="muted">Puan öncelikli, fiyat ikinci kriter</span>
+          </div>
+          <div class="list" id="jobs"></div>
+        </div>
+        <div class="grid">
+          <div class="card" id="teklif">
+            <div class="section-title"><h2>Teklif ekle</h2><span class="muted">Mevcut işe uzman fiyatı gir</span></div>
+            <form id="bidForm">
+              <div class="form-grid">
+                <div>
+                  <label for="jobSelect">İş</label>
+                  <select id="jobSelect" required></select>
+                </div>
+                <div>
+                  <label for="proSelect">Uzman</label>
+                  <select id="proSelect" required></select>
+                </div>
+              </div>
+              <label for="price">Teklif (₺)</label>
+              <input type="number" id="price" min="100" step="50" required />
+              <label for="note">Not / kapsam</label>
+              <textarea id="note" placeholder="Malzeme dahil, 2 yıl garanti..."></textarea>
+              <button class="btn primary" type="submit">Teklifi ekle</button>
+            </form>
+          </div>
+          <div class="card" id="talep">
+            <div class="section-title"><h2>Hizmet talebi oluştur</h2><span class="muted">Yeni ihale başlat</span></div>
+            <form id="requestForm">
+              <label for="title">Başlık</label>
+              <input id="title" required placeholder="Örn: Kombi su kaçak tespiti" />
+              <div class="form-grid">
+                <div>
+                  <label for="serviceType">Kategori</label>
+                  <select id="serviceType"></select>
+                </div>
+                <div>
+                  <label for="budget">Bütçe (₺)</label>
+                  <input type="number" id="budget" min="250" step="50" required />
+                </div>
+              </div>
+              <div class="form-grid">
+                <div>
+                  <label for="location">Konum</label>
+                  <input id="location" placeholder="Kadıköy, Beşiktaş..." required />
+                </div>
+                <div>
+                  <label for="deadline">Hedef tarih</label>
+                  <input id="deadline" type="date" required />
+                </div>
+              </div>
+              <label for="description">Detay</label>
+              <textarea id="description" placeholder="Açıkla: kaç metrekare, aciliyet, malzeme..." required></textarea>
+              <button class="btn primary" type="submit">İhaleyi başlat</button>
+            </form>
+          </div>
+          <div class="sidecard">
+            <div class="section-title"><h2>Uzman ekle</h2><span class="muted">Referanslı ekipler</span></div>
+            <form id="proForm">
+              <label for="proName">Ad</label>
+              <input id="proName" required />
+              <div class="form-grid">
+                <div>
+                  <label for="proArea">Uzmanlık</label>
+                  <select id="proArea"></select>
+                </div>
+                <div>
+                  <label for="proRating">Puan (5 üzerinden)</label>
+                  <input id="proRating" type="number" min="3" max="5" step="0.1" required />
+                </div>
+              </div>
+              <div class="form-grid">
+                <div>
+                  <label for="proJobs">Tamamlanan iş</label>
+                  <input id="proJobs" type="number" min="0" step="1" required />
+                </div>
+                <div>
+                  <label for="proEta">Ortalama dönüş (dk)</label>
+                  <input id="proEta" type="number" min="5" step="5" required />
+                </div>
+              </div>
+              <button class="btn" type="submit">Uzmanı kaydet</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
   <script>
-    const FİYATLAR = [
-      {
-        kategori: "Sıcak İçecekler",
-        ürünler: [
-          { ad: "Çay", fiyat: 10 },
-          { ad: "Kokteyl", fiyat: 10 },
-          { ad: "Oralet", fiyat: 10 },
-          { ad: "Nar", fiyat: 10 },
-          { ad: "Elma", fiyat: 10 },
-          { ad: "Karadut", fiyat: 10 },
-          { ad: "Kuşburnu", fiyat: 10 },
-          { ad: "Nane-Limon", fiyat: 10 },
-          { ad: "Sıcak Çikolata", fiyat: 10 },
-          { ad: "Muz", fiyat: 10 },
-          { ad: "Nescafe", fiyat: 15 },
-          { ad: "Adaçayı", fiyat: 10 },
-          { ad: "Çilek", fiyat: 10 },
-          { ad: "Türk Kahvesi", fiyat: 30 }
-        ]
-      },
-      {
-        kategori: "Soğuk İçecekler",
-        ürünler: [
-          { ad: "Kola", fiyat: 35 },
-          { ad: "Fanta", fiyat: 35 },
-          { ad: "Gazoz", fiyat: 35 },
-          { ad: "Meyveli sodalar (elma, karpuz-çilek, limon, ananas)", fiyat: 20 },
-          { ad: "Sade Soda", fiyat: 15 },
-          { ad: "Ayran", fiyat: 15 },
-          { ad: "Meyve Suları (şeftali, vişne)", fiyat: 35 },
-          { ad: "Su", fiyat: 10 }
-        ]
-      },
-      {
-        kategori: "Burgerler",
-        ürünler: [
-          { ad: "Classic Gentlemen Burger", fiyat: 165 },
-          { ad: "Double Bite Burger", fiyat: 245 },
-          { ad: "Truffle Royal Burger", fiyat: 265 }
-        ]
-      },
-      {
-        kategori: "Tost & Sandviç",
-        ürünler: [
-          { ad: "Kaşarlı Tost", fiyat: 55 },
-          { ad: "Karışık Tost", fiyat: 70 },
-          { ad: "Sosisli Sandviç", fiyat: 60 },
-          { ad: "Tavuklu Club Sandviç", fiyat: 80 }
-        ]
-      },
-      {
-        kategori: "Atıştırmalıklar",
-        ürünler: [
-          { ad: "Patates Kızartması (150 g)", fiyat: 45 },
-          { ad: "Soğan Halkası (150 g)", fiyat: 40 },
-          { ad: "Mini Sosis Tabağı (150 g)", fiyat: 60 },
-          { ad: "Bira Tabağı", fiyat: 100 }
-        ]
-      }
+    const categories = [
+      { name: 'Su Tesisatı', tagline: 'Kaçak tespiti, kombi, radyatör, drenaj', chips: ['Acil 7/24', 'Termal kamera', 'Garanti'] },
+      { name: 'Elektrik Tesisatı', tagline: 'Arıza, pano, topraklama, aydınlatma', chips: ['Kesintisiz enerji', 'Usta elektrikçi', 'Keşif dahil'] },
+      { name: 'Yapı Onarım', tagline: 'Alçı-sıva, boya, çatı, izolasyon', chips: ['İzole çözüm', 'Maliyet kalemi', 'Temiz teslim'] },
+      { name: 'Temizlik & Dezenfeksiyon', tagline: 'Bina, ofis, inşaat sonrası', chips: ['Ekipmanlı ekip', 'Kimyasal belgesi', 'Planlı bakım'] },
+      { name: 'Beyaz Eşya & İklimlendirme', tagline: 'Kombi, klima, ankastre kurulum', chips: ['Parça garantisi', 'Yetkili teknisyen', 'Hızlı servis'] },
+      { name: 'Nakliye & Montaj', tagline: 'Mobilya kurulumu, küçük nakliye', chips: ['Sigortalı taşıma', 'Usta montaj', 'Randevulu'] }
     ];
 
-    document.getElementById('shopName').textContent = 'The Gentlemen’s Bite';
-    try{
-      const fmt = new Intl.DateTimeFormat('tr-TR', { timeZone:'Europe/Istanbul', day:'2-digit', month:'long', year:'numeric' });
-      document.getElementById('today').textContent = fmt.format(new Date());
-    }catch(e){ document.getElementById('today').textContent = new Date().toLocaleDateString('tr-TR'); }
-    const root = document.getElementById('menuRoot');
-    FİYATLAR.forEach(blok=>{
-      const sec = document.createElement('section');
-      sec.className = 'section';
-      const h2 = document.createElement('h2');
-      h2.textContent = blok.kategori;
-      sec.appendChild(h2);
-      blok.ürünler.forEach((u,i)=>{
-        const list = document.createElement('div');
-        list.className='list';
-        const left = document.createElement('div');
-        left.className='item';
-        const name = document.createElement('span'); name.textContent = u.ad;
-        const dots = document.createElement('span'); dots.className='dots';
-        left.append(name,dots);
-        const price = document.createElement('div'); price.className='price'; price.textContent = `₺ ${Number(u.fiyat).toLocaleString('tr-TR')}`;
-        list.append(left, price);
-        sec.appendChild(list);
+    const pros = [
+      { id:'p1', name:'Yıldız Tesisat', area:'Su Tesisatı', rating:4.9, jobs:182, eta:18 },
+      { id:'p2', name:'Elektronix Usta', area:'Elektrik Tesisatı', rating:4.8, jobs:143, eta:22 },
+      { id:'p3', name:'Nokta Yapı', area:'Yapı Onarım', rating:4.7, jobs:201, eta:35 },
+      { id:'p4', name:'Işık Enerji', area:'Elektrik Tesisatı', rating:4.95, jobs:96, eta:16 },
+      { id:'p5', name:'Cleanza Pro Temizlik', area:'Temizlik & Dezenfeksiyon', rating:4.85, jobs:120, eta:28 }
+    ];
+
+    const jobs = [
+      { id:'j1', title:'Kombi su kaçak tespiti ve onarım', service:'Su Tesisatı', location:'Kadıköy', budget:4500, deadline:futureDate(5), description:'Petek altında su, kombi basınç düşüyor. Termal kamera ile tespit ve onarım.', status:'Açık', bids:[
+        { pro:'p1', price:4200, note:'Termal kamera dahil, 2 yıl garanti' },
+        { pro:'p4', price:4400, note:'Yedek parça stokta, gün içinde teslim' }
+      ]},
+      { id:'j2', title:'Ofis elektrik pano revizyonu', service:'Elektrik Tesisatı', location:'Şişli', budget:12000, deadline:futureDate(10), description:'Eski panoda kaçak akım rölesi yok. Tek hat diyagramı + topraklama ölçümü.', status:'Açık', bids:[
+        { pro:'p2', price:11800, note:'Topraklama raporu dahil' },
+        { pro:'p4', price:12500, note:'Malzeme Siemens, 1 yıl destek' }
+      ]},
+      { id:'j3', title:'Çatı su yalıtımı ve oluk yenileme', service:'Yapı Onarım', location:'Üsküdar', budget:28000, deadline:futureDate(20), description:'120 m² çatı, yağmurda sızıntı var. Mevcut oluklar paslı.', status:'Açık', bids:[
+        { pro:'p3', price:26500, note:'Membran + oluk değişimi, 5 yıl garanti' }
+      ]}
+    ];
+
+    const domainIdeas = ['cleanza.com.tr','cleanza.com','cleanzapp.com','temizisler.com','ustabol.com','hemenustam.com'];
+
+    function futureDate(offset){ const d=new Date(); d.setDate(d.getDate()+offset); return d.toISOString().split('T')[0]; }
+    function formatCurrency(v){ return new Intl.NumberFormat('tr-TR', { style:'currency', currency:'TRY', maximumFractionDigits:0 }).format(v); }
+
+    const jobEl = document.getElementById('jobs');
+    const jobSelect = document.getElementById('jobSelect');
+    const proSelect = document.getElementById('proSelect');
+    const statOpen = document.getElementById('stat-open');
+    const statPros = document.getElementById('stat-pros');
+    const statEta = document.getElementById('stat-eta');
+    const statSla = document.getElementById('stat-sla');
+
+    function renderDomains(){
+      const wrap = document.getElementById('domains');
+      wrap.innerHTML = '';
+      domainIdeas.forEach(d=>{
+        const span = document.createElement('span');
+        span.className = 'domain';
+        span.textContent = d;
+        wrap.appendChild(span);
       });
-      root.appendChild(sec);
+    }
+
+    function renderCategories(){
+      const wrap = document.getElementById('categories');
+      wrap.innerHTML='';
+      categories.forEach(cat=>{
+        const c = document.createElement('div');
+        c.className='category';
+        c.innerHTML = `<strong>${cat.name}</strong><div class="tagline">${cat.tagline}</div>`;
+        const chips = document.createElement('div');
+        chips.className='chips';
+        cat.chips.forEach(ch=>{
+          const chip = document.createElement('span'); chip.className='chip'; chip.textContent = ch; chips.appendChild(chip);
+        });
+        c.appendChild(chips);
+        wrap.appendChild(c);
+      });
+    }
+
+    function renderSelects(){
+      jobSelect.innerHTML = jobs.map(j=>`<option value="${j.id}">${j.title}</option>`).join('');
+      proSelect.innerHTML = pros.map(p=>`<option value="${p.id}">${p.name} (${p.area})</option>`).join('');
+      const serviceType = document.getElementById('serviceType');
+      const proArea = document.getElementById('proArea');
+      [serviceType, proArea].forEach(sel=>{ sel.innerHTML = categories.map(c=>`<option value="${c.name}">${c.name}</option>`).join(''); });
+    }
+
+    function bestBid(job){
+      if(!job.bids.length) return null;
+      const sorted = [...job.bids].sort((a,b)=>{
+        const proA = pros.find(p=>p.id===a.pro); const proB = pros.find(p=>p.id===b.pro);
+        if(proA.rating === proB.rating) return a.price - b.price;
+        return proB.rating - proA.rating;
+      });
+      const bid = sorted[0];
+      const pro = pros.find(p=>p.id===bid.pro);
+      return { bid, pro };
+    }
+
+    function renderStats(){
+      const open = jobs.filter(j=>j.status==='Açık').length;
+      document.getElementById('openCount').textContent = `${open} açık ihale`;
+      statOpen.textContent = open;
+      statPros.textContent = pros.length;
+      const avgEta = Math.round(pros.reduce((s,p)=>s+p.eta,0)/pros.length);
+      statEta.textContent = `${avgEta} dk`;
+      const success = Math.min(99, Math.round((pros.reduce((s,p)=>s+p.jobs,0)/(pros.length*220))*100));
+      statSla.textContent = `%${success}`;
+    }
+
+    function renderJobs(){
+      jobEl.innerHTML = '';
+      jobs.forEach(job=>{
+        const card = document.createElement('article');
+        card.className='job';
+        const best = bestBid(job);
+        card.innerHTML = `
+          <div class="meta">
+            <span class="label">${job.service}</span>
+            <span class="label">${job.location}</span>
+            <span class="label">Bütçe: ${formatCurrency(job.budget)}</span>
+            <span class="pill ${job.status==='Açık'?'status-open':'status-closed'}">${job.status}</span>
+          </div>
+          <h3>${job.title}</h3>
+          <div class="muted">Hedef: ${job.deadline}</div>
+          <p class="muted" style="margin:6px 0 0">${job.description}</p>
+        `;
+        if(best){
+          const bestBox = document.createElement('div');
+          bestBox.className='best';
+          bestBox.innerHTML = `<strong>${best.pro.name}</strong> · ${best.pro.rating.toFixed(2)} puan · ${best.pro.jobs} iş — <span class="price">${formatCurrency(best.bid.price)}</span><div class="muted">${best.bid.note}</div>`;
+          card.appendChild(bestBox);
+        }
+        const bidWrap = document.createElement('div');
+        bidWrap.className='bid-list';
+        job.bids.forEach(b=>{
+          const pro = pros.find(p=>p.id===b.pro);
+          const row = document.createElement('div');
+          row.className='bid';
+          row.innerHTML = `<div><strong>${pro.name}</strong> · ${pro.rating.toFixed(2)} puan · ${pro.jobs} iş</div><div class="price">${formatCurrency(b.price)}</div><div class="note">${b.note||''}</div>`;
+          bidWrap.appendChild(row);
+        });
+        card.appendChild(bidWrap);
+        jobEl.appendChild(card);
+      });
+    }
+
+    document.getElementById('bidForm').addEventListener('submit', e=>{
+      e.preventDefault();
+      const jobId = jobSelect.value;
+      const proId = proSelect.value;
+      const price = Number(document.getElementById('price').value);
+      const note = document.getElementById('note').value;
+      if(!price) return;
+      const job = jobs.find(j=>j.id===jobId);
+      job.bids.push({ pro: proId, price, note });
+      renderJobs();
+      e.target.reset();
     });
+
+    document.getElementById('requestForm').addEventListener('submit', e=>{
+      e.preventDefault();
+      const title = document.getElementById('title').value.trim();
+      const service = document.getElementById('serviceType').value;
+      const budget = Number(document.getElementById('budget').value);
+      const location = document.getElementById('location').value.trim();
+      const deadline = document.getElementById('deadline').value;
+      const description = document.getElementById('description').value.trim();
+      if(!title || !budget || !location || !deadline || !description) return;
+      const id = `j${Date.now()}`;
+      jobs.unshift({ id, title, service, budget, location, deadline, description, status:'Açık', bids:[] });
+      renderSelects();
+      renderJobs();
+      renderStats();
+      e.target.reset();
+    });
+
+    document.getElementById('proForm').addEventListener('submit', e=>{
+      e.preventDefault();
+      const name = document.getElementById('proName').value.trim();
+      const area = document.getElementById('proArea').value;
+      const rating = Number(document.getElementById('proRating').value);
+      const jobsCount = Number(document.getElementById('proJobs').value);
+      const eta = Number(document.getElementById('proEta').value);
+      if(!name || !rating) return;
+      pros.push({ id:`p${Date.now()}`, name, area, rating, jobs:jobsCount, eta });
+      renderSelects();
+      renderStats();
+      e.target.reset();
+    });
+
+    renderDomains();
+    renderCategories();
+    renderSelects();
+    renderStats();
+    renderJobs();
   </script>
 </body>
 </html>
